@@ -29,9 +29,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ]
+            "styles": ["src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -53,6 +51,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "testronaut": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "browser": "testronaut/main.ts",
+              "index": "testronaut/index.html",
+              "tsConfig": "testronaut/tsconfig.json"
             }
           },
           "defaultConfiguration": "production"
@@ -61,10 +67,15 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "testronaut-demo:build:production"
+              "buildTarget": ":build:production"
             },
             "development": {
-              "buildTarget": "testronaut-demo:build:development"
+              "buildTarget": ":build:development"
+            },
+            "testronaut": {
+              "buildTarget": ":build:testronaut",
+              "liveReload": false,
+              "prebundle": false
             }
           },
           "defaultConfiguration": "development"

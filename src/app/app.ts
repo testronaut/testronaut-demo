@@ -1,16 +1,9 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RecipeSearch } from './recipe/recipe-search';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  template: `
-    <h1>Welcome to {{ title() }}!</h1>
-
-    <router-outlet />
-  `,
-  styles: [],
+  imports: [RecipeSearch],
+  template: `<wm-recipe-search />`,
 })
-export class App {
-  protected readonly title = signal('testronaut-demo');
-}
+export class App {}

@@ -1,0 +1,13 @@
+diff --git a/dist/src/lib/common/index.d.ts b/dist/src/lib/common/index.d.ts
+index 5315af20d5a842b4dbadcc08499b7c6e5791fc04..87cb4475369df4aca338cb2b065d8050ca83fa06 100644
+--- a/dist/src/lib/common/index.d.ts
++++ b/dist/src/lib/common/index.d.ts
+@@ -15,7 +15,7 @@ export interface OutputEvent<CMP, OUTPUT_NAME extends keyof OutputTypes<CMP> = k
+     } ? VALUE : unknown;
+ }
+ export type Inputs<CMP> = Partial<{
+-    [PROP in keyof CMP as CMP[PROP] extends InputSignal<unknown> ? PROP : never]: CMP[PROP] extends InputSignal<infer VALUE> ? VALUE : never;
++    [PROP in keyof CMP as CMP[PROP] extends InputSignal<any> ? PROP : never]: CMP[PROP] extends InputSignal<infer VALUE> ? VALUE : never;
+ }>;
+ export type OutputTypes<CMP> = {
+     [PROP in keyof CMP as CMP[PROP] extends {

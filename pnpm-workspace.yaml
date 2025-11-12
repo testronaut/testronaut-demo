@@ -1,0 +1,2 @@
+patchedDependencies:
+  '@testronaut/angular': patches/@testronaut__angular.patch

@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { createRecipe, Recipe } from './recipe';
-import { RecipeFilterCriteria } from './recipe-filter-criteria';
-import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { createRecipe, Recipe } from './recipe';
+import { getDefaultRecipeFilterCriteria, RecipeFilterCriteria } from './recipe-filter-criteria';
 
 export interface RecipeRepositoryDef {
   search(filter: RecipeFilterCriteria): Observable<Recipe[]>;
@@ -15,7 +15,9 @@ export interface RecipeRepositoryDef {
 export class RecipeRepository implements RecipeRepositoryDef {
   private _httpClient = inject(HttpClient);
 
-  search({ keywords, maxIngredientCount }: RecipeFilterCriteria = {}): Observable<Recipe[]> {
+  search(
+    { keywords, maxIngredientCount }: RecipeFilterCriteria = getDefaultRecipeFilterCriteria(),
+  ): Observable<Recipe[]> {
     const params: ResponseListQueryParams = {
       embed: 'ingredients',
       ...(keywords ? { q: keywords } : {}),
@@ -36,13 +38,13 @@ export class RecipeRepository implements RecipeRepositoryDef {
                 pictureUri: item.picture_uri,
                 ingredients: item.ingredients ?? [],
                 steps: [],
-              })
+              }),
             )
             /* Filter max ingredients locally meanwhile it is implemented server-side. */
             .filter((recipe) =>
-              maxIngredientCount != null ? recipe.ingredients.length <= maxIngredientCount : true
-            )
-        )
+              maxIngredientCount ? recipe.ingredients.length <= maxIngredientCount : true,
+            ),
+        ),
       );
   }
 }

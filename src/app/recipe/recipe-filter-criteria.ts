@@ -4,8 +4,10 @@ export interface RecipeFilterCriteria {
   maxStepCount?: number;
 }
 
-export function createRecipeFilterCriteria(
-  filter: RecipeFilterCriteria,
-): RecipeFilterCriteria {
+export function createRecipeFilterCriteria(filter: RecipeFilterCriteria): RecipeFilterCriteria {
   return filter;
+}
+
+export function getDefaultRecipeFilterCriteria(): RecipeFilterCriteria {
+  return createRecipeFilterCriteria({});
 }

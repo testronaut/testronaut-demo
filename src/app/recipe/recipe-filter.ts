@@ -1,49 +1,66 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import { Field, form } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { map } from 'rxjs/operators';
-import { createRecipeFilterCriteria } from './recipe-filter-criteria';
+import { createRecipeFilterCriteria, RecipeFilterCriteria } from './recipe-filter-criteria';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'wm-recipe-filter',
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [Field, MatFormFieldModule, MatInputModule],
   template: `
-    <form [formGroup]="filterFormGroup">
+    <form (input)="emitFilterChange()">
       <mat-form-field>
         <mat-label>Keywords</mat-label>
-        <input formControlName="keywords" matInput type="text" />
+        <input [field]="filterForm.keywords" matInput type="text" />
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Max Ingredients</mat-label>
-        <input formControlName="maxIngredientCount" matInput type="number" />
+        <input [field]="filterForm.maxIngredientCount" matInput type="number" />
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Max Steps</mat-label>
-        <input formControlName="maxStepCount" matInput type="number" />
+        <input [field]="filterForm.maxStepCount" matInput type="number" />
       </mat-form-field>
     </form>
   `,
-  styles: [
-    `
-      :host {
-        text-align: center;
-      }
-    `,
-  ],
+  styles: `
+    :host {
+      text-align: center;
+    }
+  `,
 })
 export class RecipeFilter {
-  protected filterFormGroup = new FormGroup({
-    keywords: new FormControl(),
-    maxIngredientCount: new FormControl(),
-    maxStepCount: new FormControl(),
-  });
-
-  filterChange = outputFromObservable(
-    this.filterFormGroup.valueChanges.pipe(map((value) => createRecipeFilterCriteria(value)))
+  filterForm = form<RecipeFilterForm>(
+    signal({
+      keywords: '',
+      maxIngredientCount: '',
+      maxStepCount: '',
+    }),
   );
+
+  filterChange = output<RecipeFilterCriteria>();
+
+  emitFilterChange() {
+    this.filterChange.emit(
+      createRecipeFilterCriteria({
+        keywords: this.filterForm.keywords().value() ?? undefined,
+        maxIngredientCount: normalizeInt(this.filterForm.maxIngredientCount().value()),
+        maxStepCount: normalizeInt(this.filterForm.maxStepCount().value()),
+      }),
+    );
+  }
+}
+
+interface RecipeFilterForm {
+  keywords: string;
+  maxIngredientCount: string;
+  maxStepCount: string;
+}
+
+function normalizeInt(value: string): number | undefined {
+  const number = parseInt(value);
+  return isNaN(number) ? undefined : number;
 }

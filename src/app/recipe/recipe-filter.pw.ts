@@ -7,6 +7,6 @@ test.describe('RecipeFilter', () => {
 
     await page.getByLabel('Keywords').fill('Burger');
 
-    expect.poll(() => outputs.filterChange.calls).toMatchObject([{ keywords: 'Burger' }]);
+    await expect.poll(() => outputs.filterChange.calls).toMatchObject([{ keywords: 'Burger' }]);
   });
 });

@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@testronaut/angular':
+    hash: 0bbfbd6e72339021cb91926a29310ac3926bd2c88c95f5725215eece134f1070
+    path: patches/@testronaut__angular.patch
+
 importers:
 
   .:
@@ -50,7 +55,7 @@ importers:
         version: 21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(typescript@5.9.3)
       '@testronaut/angular':
         specifier: 0.0.11
-        version: 0.0.11(@angular/compiler@21.0.0-rc.1)(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(@angular/platform-browser@21.0.0-rc.1(@angular/common@21.0.0-rc.1(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2)))(@testronaut/core@0.0.11(@playwright/test@1.56.1))
+        version: 0.0.11(patch_hash=0bbfbd6e72339021cb91926a29310ac3926bd2c88c95f5725215eece134f1070)(@angular/compiler@21.0.0-rc.1)(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(@angular/platform-browser@21.0.0-rc.1(@angular/common@21.0.0-rc.1(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2)))(@testronaut/core@0.0.11(@playwright/test@1.56.1))
       '@testronaut/core':
         specifier: 0.0.11
         version: 0.0.11(@playwright/test@1.56.1)
@@ -4233,7 +4238,7 @@ snapshots:
 
   '@standard-schema/spec@1.0.0': {}
 
-  '@testronaut/angular@0.0.11(@angular/compiler@21.0.0-rc.1)(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(@angular/platform-browser@21.0.0-rc.1(@angular/common@21.0.0-rc.1(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2)))(@testronaut/core@0.0.11(@playwright/test@1.56.1))':
+  '@testronaut/angular@0.0.11(patch_hash=0bbfbd6e72339021cb91926a29310ac3926bd2c88c95f5725215eece134f1070)(@angular/compiler@21.0.0-rc.1)(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(@angular/platform-browser@21.0.0-rc.1(@angular/common@21.0.0-rc.1(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2)))(@testronaut/core@0.0.11(@playwright/test@1.56.1))':
     dependencies:
       '@angular/compiler': 21.0.0-rc.1
       '@angular/core': 21.0.0-rc.1(@angular/compiler@21.0.0-rc.1)(rxjs@7.8.2)
